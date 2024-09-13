@@ -4,7 +4,7 @@
 
 <div align="center">
 <sub>Figura 1 - Diagrama Entidade Relacionamento</sub>
-<img src="DER.png" width="100%" >
+<img src="DER.drawio.png" width="100%" >
 <sup>Fonte: Material produzido pelo autor (2024)</sup>
 </div>
 
