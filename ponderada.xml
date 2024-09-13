@@ -37,111 +37,175 @@
 		<type label="SET" length="1" sql="SET" quote=""/>
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
-</datatypes><table x="495" y="102" name="Card">
-<row name="CardCode" null="1" autoincrement="1">
+</datatypes><table x="400" y="100" name="OCRD">
+<row name="CardCode" null="0" autoincrement="0">
 <datatype>VARCHAR(20)</datatype>
-<default>NULL</default></row>
+<relation table="OCRB" row="ParentKey" />
+</row>
 <row name="CardName" null="1" autoincrement="0">
-<datatype>VARCHAR(255)</datatype>
+<datatype>VARCHAR(100)</datatype>
+<default>NULL</default></row>
+<row name="CardForeignName" null="1" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
 <default>NULL</default></row>
 <row name="CardType" null="1" autoincrement="0">
-<datatype>VARCHAR(50)</datatype>
+<datatype>VARCHAR(20)</datatype>
 <default>NULL</default></row>
 <row name="GroupCode" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>VARCHAR(10)</datatype>
 <default>NULL</default></row>
 <row name="Phone1" null="1" autoincrement="0">
-<datatype>VARCHAR(20)</datatype>
+<datatype>VARCHAR(15)</datatype>
 <default>NULL</default></row>
 <row name="Phone2" null="1" autoincrement="0">
-<datatype>VARCHAR(20)</datatype>
+<datatype>VARCHAR(15)</datatype>
+<default>NULL</default></row>
+<row name="Cellular" null="1" autoincrement="0">
+<datatype>VARCHAR(15)</datatype>
+<default>NULL</default></row>
+<row name="Fax" null="1" autoincrement="0">
+<datatype>VARCHAR(15)</datatype>
+<default>NULL</default></row>
+<row name="Notes" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<row name="FreeText" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
 <default>NULL</default></row>
 <row name="EmailAddress" null="1" autoincrement="0">
-<datatype>VARCHAR(255)</datatype>
+<datatype>VARCHAR(100)</datatype>
 <default>NULL</default></row>
 <row name="ShippingType" null="1" autoincrement="0">
-<datatype>VARCHAR(50)</datatype>
+<datatype>VARCHAR(20)</datatype>
 <default>NULL</default></row>
 <row name="Website" null="1" autoincrement="0">
-<datatype>VARCHAR(255)</datatype>
+<datatype>VARCHAR(100)</datatype>
 <default>NULL</default></row>
 <row name="CompanyPrivate" null="1" autoincrement="0">
-<datatype>VARCHAR(50)</datatype>
+<datatype>VARCHAR(20)</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>CardCode</part>
 </key>
-<comment>Contém informações de identificação e contato dos clientes e fornecedores.</comment>
+<comment>Tabela de Parceiros de Negócios (clientes, fornecedores, etc.).</comment>
 </table>
-<table x="193" y="101" name="Adress">
-<row name="AddressID" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
+<table x="152" y="102" name="OCRB">
+<row name="ParentKey" null="0" autoincrement="0">
+<datatype>VARCHAR(20)</datatype>
+<relation table="OCRD" row="CardCode" />
+</row>
+<row name="County" null="1" autoincrement="0">
+<datatype>VARCHAR(50)</datatype>
 <default>NULL</default></row>
-<row name="ParentKey" null="1" autoincrement="0">
+<row name="BankCode" null="1" autoincrement="0">
+<datatype>VARCHAR(10)</datatype>
+<default>NULL</default></row>
+<row name="Branch" null="1" autoincrement="0">
+<datatype>VARCHAR(10)</datatype>
+<default>NULL</default></row>
+<row name="UserNo1" null="1" autoincrement="0">
+<datatype>VARCHAR(50)</datatype>
+<default>NULL</default></row>
+<row name="AccountNo" null="1" autoincrement="0">
 <datatype>VARCHAR(20)</datatype>
 <default>NULL</default></row>
-<row name="AddressType" null="1" autoincrement="0">
+<row name="UserNo2" null="1" autoincrement="0">
 <datatype>VARCHAR(50)</datatype>
+<default>NULL</default></row>
+<row name="AccountName" null="1" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>ParentKey</part>
+</key>
+<comment>Contas bancárias associadas aos Parceiros de Negócios.</comment>
+</table>
+<table x="701" y="103" name="CRD1">
+<row name="ParentKey" null="0" autoincrement="0">
+<datatype>VARCHAR(20)</datatype>
+<relation table="OCRD" row="CardCode" />
+</row>
+<row name="AddressType" null="1" autoincrement="0">
+<datatype>VARCHAR(10)</datatype>
 <default>NULL</default></row>
 <row name="AddressName" null="1" autoincrement="0">
-<datatype>VARCHAR(255)</datatype>
+<datatype>VARCHAR(100)</datatype>
+<default>NULL</default></row>
+<row name="TypeOfAddress" null="1" autoincrement="0">
+<datatype>VARCHAR(50)</datatype>
 <default>NULL</default></row>
 <row name="Street" null="1" autoincrement="0">
-<datatype>VARCHAR(255)</datatype>
+<datatype>VARCHAR(100)</datatype>
 <default>NULL</default></row>
 <row name="StreetNo" null="1" autoincrement="0">
-<datatype>VARCHAR(255)</datatype>
+<datatype>VARCHAR(10)</datatype>
+<default>NULL</default></row>
+<row name="Block" null="1" autoincrement="0">
+<datatype>VARCHAR(50)</datatype>
 <default>NULL</default></row>
 <row name="City" null="1" autoincrement="0">
-<datatype>VARCHAR(255)</datatype>
+<datatype>VARCHAR(50)</datatype>
 <default>NULL</default></row>
 <row name="County" null="1" autoincrement="0">
-<datatype>VARCHAR(255)</datatype>
+<datatype>VARCHAR(50)</datatype>
 <default>NULL</default></row>
 <row name="State" null="1" autoincrement="0">
-<datatype>VARCHAR(50)</datatype>
+<datatype>VARCHAR(2)</datatype>
 <default>NULL</default></row>
 <row name="ZipCode" null="1" autoincrement="0">
 <datatype>VARCHAR(10)</datatype>
 <default>NULL</default></row>
 <row name="Country" null="1" autoincrement="0">
-<datatype>VARCHAR(20)</datatype>
+<datatype>VARCHAR(3)</datatype>
 <default>NULL</default></row>
-<row name="CardCode" null="1" autoincrement="0">
-<datatype>VARCHAR(20)</datatype>
-<default>NULL</default><relation table="Card" row="CardCode" />
-</row>
-<key type="PRIMARY" name="">
-<part>AddressID</part>
-</key>
-<comment>Registra os endereços associados a cada entidade (cliente/fornecedor).</comment>
-</table>
-<table x="782" y="102" name="BankAccount">
-<row name="BankID" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="ParentKey" null="1" autoincrement="0">
-<datatype>VARCHAR(20)</datatype>
-<default>NULL</default></row>
-<row name="BankCode" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="Branch" null="1" autoincrement="0">
-<datatype>VARCHAR(20)</datatype>
-<default>NULL</default></row>
-<row name="AccountNo" null="1" autoincrement="0">
+<row name="BuildingFloorRoom" null="1" autoincrement="0">
 <datatype>VARCHAR(50)</datatype>
 <default>NULL</default></row>
-<row name="AccountName" null="1" autoincrement="0">
-<datatype>VARCHAR(255)</datatype>
-<default>NULL</default></row>
-<row name="CardCode" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="Card" row="CardCode" />
-</row>
 <key type="PRIMARY" name="">
-<part>BankID</part>
+<part>ParentKey</part>
 </key>
-<comment>Armazena informações bancárias relacionadas a cada entidade.</comment>
+<comment>Endereços de Parceiros de Negócios (cobrança, entrega, etc.).</comment>
+</table>
+<table x="199" y="433" name="OCRD7">
+<row name="ParentKey" null="1" autoincrement="1">
+<datatype>VARCHAR(20)</datatype>
+<default>NULL</default><relation table="OCRD" row="CardCode" />
+</row>
+<row name="LineNum" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="Address" null="1" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
+<default>NULL</default></row>
+<row name="TaxId0" null="1" autoincrement="0">
+<datatype>VARCHAR(20)</datatype>
+<default>NULL</default></row>
+<row name="TaxId1" null="1" autoincrement="0">
+<datatype>VARCHAR(20)</datatype>
+<default>NULL</default></row>
+<row name="TaxId2" null="1" autoincrement="0">
+<datatype>VARCHAR(20)</datatype>
+<default>NULL</default></row>
+<row name="TaxId3" null="1" autoincrement="0">
+<datatype>VARCHAR(20)</datatype>
+<default>NULL</default></row>
+<row name="TaxId4" null="1" autoincrement="0">
+<datatype>VARCHAR(20)</datatype>
+<default>NULL</default></row>
+<row name="TaxId5" null="1" autoincrement="0">
+<datatype>VARCHAR(20)</datatype>
+<default>NULL</default></row>
+<row name="TaxId6" null="1" autoincrement="0">
+<datatype>VARCHAR(20)</datatype>
+<default>NULL</default></row>
+<row name="TaxId7" null="1" autoincrement="0">
+<datatype>VARCHAR(20)</datatype>
+<default>NULL</default></row>
+<row name="TaxId8" null="1" autoincrement="0">
+<datatype>VARCHAR(20)</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>ParentKey</part>
+</key>
 </table>
 </sql>

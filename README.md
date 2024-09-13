@@ -1,62 +1,82 @@
 ## Diagrama Entidade-Relacionamento (ER) do Projeto de Implementação SAP
 
-&emsp;&emsp; O diagrama presente na figura abaixo foi criado com base nos dados mestres usados pelo grupo [G2²](https://github.com/Inteli-College/2024-2A-T10-SI07-G02/tree/main/src/data), que incluem informações sobre clientes, fornecedores, endereços e contas bancárias. O objetivo do diagrama é ilustrar como os dados estão organizados e as relações entre as principais entidades envolvidas.
+&emsp;&emsp; O diagrama presente na figura abaixo foi criado com base nos dados mestres fornecidos pela G2 Tecnologia, que incluem informações sobre parceiros de negócios, contas bancárias, endereços e informações fiscais. O objetivo deste diagrama é ilustrar a estrutura dos dados mestres e as relações entre as principais entidades envolvidas no processo de implementação do SAP Business One.
 
 <div align="center">
 <sub>Figura 1 - Diagrama Entidade Relacionamento</sub>
-<img src="image.png" width="100%" >
-<sup>Fonte: Material produzido pela autora (2024)</sup>
+<img src="DER.png" width="100%" >
+<sup>Fonte: Material produzido pelo autor (2024)</sup>
 </div>
 
 ## Entidades Principais
 
-### 1. **Card**
-   - **Descrição**: A entidade `Card` representa as entidades do sistema que podem ser clientes ou fornecedores, conforme indicado no campo `CardType`. Esta tabela contém informações básicas sobre cada entidade, como nome, tipo de entidade, contatos e outros detalhes.
+### 1. **OCRD** (Parceiros de Negócios)
+   - **Descrição**: A entidade `OCRD` representa os parceiros de negócios, que podem ser clientes, fornecedores ou leads. Esta tabela contém as principais informações sobre cada parceiro, incluindo nome, tipo de parceiro, contatos e dados adicionais.
    - **Atributos**:
-     - `CardCode` (PK): Código único que identifica o cliente ou fornecedor.
-     - `CardName`: Nome da entidade.
-     - `CardType`: Define se a entidade é um cliente, fornecedor ou outro tipo.
-     - `GroupCode`: Grupo ao qual a entidade pertence (por exemplo, grupo de fornecedores, grupo de clientes).
+     - `CardCode` (PK): Código único que identifica o parceiro de negócios.
+     - `CardName`: Nome completo ou razão social do parceiro.
+     - `CardForeignName`: Nome fantasia ou alternativo do parceiro.
+     - `CardType`: Define se o parceiro é cliente, fornecedor ou lead.
+     - `GroupCode`: Grupo ao qual o parceiro pertence.
      - `Phone1`, `Phone2`: Telefones de contato.
-     - `EmailAddress`: E-mail da entidade.
-     - `ShippingType`: Tipo de envio preferido pela entidade.
-     - `Website`: Endereço do site da entidade.
-     - `CompanyPrivate`: Indica se é uma empresa privada.
-   - **Fonte de Dados**: Esta entidade foi mapeada a partir do arquivo `processed_cadastros_PN.xlsx`, que contém os registros de clientes e fornecedores.
+     - `Cellular`: Número de celular do parceiro.
+     - `Fax`: Número de fax (se aplicável).
+     - `EmailAddress`: Endereço de e-mail do parceiro.
+     - `ShippingType`: Tipo de transporte preferido para entrega.
+     - `Website`: Site do parceiro de negócios.
+     - `CompanyPrivate`: Indica se o parceiro é uma empresa privada ou pública.
+   - **Fonte de Dados**: Esta entidade foi mapeada a partir do arquivo `processed_OCRD.xlsx`, que contém os registros de parceiros de negócios, como clientes e fornecedores.
 
-### 2. **Address**
-   - **Descrição**: A entidade `Address` armazena os endereços relacionados aos clientes e fornecedores cadastrados no sistema. Cada entidade (cliente ou fornecedor) pode ter múltiplos endereços, como endereços de cobrança ou envio.
+### 2. **CRD1** (Endereços de Parceiros de Negócio)
+   - **Descrição**: A entidade `CRD1` armazena os endereços relacionados aos parceiros de negócios cadastrados no sistema. Cada parceiro pode ter múltiplos endereços, como endereços de cobrança ou envio.
    - **Atributos**:
-     - `ParentKey` (FK - CardCode): Referência ao código da entidade (cliente ou fornecedor) na tabela `Card`.
+     - `ParentKey` (FK - CardCode): Referência ao código do parceiro de negócios na tabela `OCRD`.
      - `AddressType`: Tipo de endereço (por exemplo, cobrança, envio).
      - `AddressName`: Nome associado ao endereço.
+     - `TypeOfAddress`: Tipo de logradouro (rua, avenida, etc.).
      - `Street`: Nome da rua.
-     - `StreetNo`: Número da rua.
+     - `StreetNo`: Número do logradouro.
+     - `Block`: Bairro do endereço.
      - `City`, `County`: Cidade e região onde o endereço está localizado.
      - `State`: Estado onde o endereço está localizado.
-     - `ZipCode`: Código postal.
+     - `ZipCode`: Código postal (CEP).
      - `Country`: País onde o endereço está localizado.
-   - **Fonte de Dados**: Os dados desta entidade foram extraídos do arquivo `processed_CRD1.xlsx`, que contém registros de endereços associados a cada cliente ou fornecedor.
+     - `BuildingFloorRoom`: Informação de sala, andar (se aplicável).
+   - **Fonte de Dados**: Os dados desta entidade foram extraídos do arquivo `processed_CRD1.xlsx`, que contém registros de endereços associados a cada parceiro de negócios.
 
-### 3. **BankAccount**
-   - **Descrição**: A entidade `BankAccount` contém as informações bancárias associadas a clientes e fornecedores. Cada entidade pode ter várias contas bancárias registradas.
+### 3. **CRD7** (Impostos e Identificações)
+   - **Descrição**: A entidade `CRD7` contém informações fiscais e tributárias associadas aos parceiros de negócios. Cada parceiro pode ter várias informações fiscais registradas.
    - **Atributos**:
-     - `ParentKey` (FK - CardCode): Referência ao código da entidade (cliente ou fornecedor) na tabela `Card`.
-     - `BankCode`: Código do banco.
+     - `ParentKey` (FK - CardCode): Referência ao código do parceiro de negócios na tabela `OCRD`.
+     - `LineNum`: Número da linha para múltiplos registros de impostos.
+     - `Address`: Tipo de endereço (COBRANÇA, ENTREGA, etc.).
+     - `TaxId0` a `TaxId8`: Números de identificação fiscal do parceiro (CNPJ, CPF, etc.).
+   - **Fonte de Dados**: Os dados desta entidade foram extraídos do arquivo `processed_CRD7.xlsx`, que contém informações fiscais associadas aos parceiros de negócios.
+
+### 4. **OCRB** (Contas Bancárias)
+   - **Descrição**: A entidade `OCRB` armazena as contas bancárias associadas aos parceiros de negócios. Cada parceiro pode ter uma ou mais contas bancárias registradas no sistema.
+   - **Atributos**:
+     - `ParentKey` (FK - CardCode): Referência ao código do parceiro de negócios na tabela `OCRD`.
+     - `County`: País da conta bancária.
+     - `BankCode`: Código do banco da conta bancária.
      - `Branch`: Agência bancária.
      - `AccountNo`: Número da conta bancária.
      - `AccountName`: Nome associado à conta bancária.
-   - **Fonte de Dados**: Os dados desta entidade foram obtidos a partir do arquivo `processed_CRD7.xlsx`, que contém as contas bancárias associadas a clientes e fornecedores.
+   - **Fonte de Dados**: Os dados desta entidade foram extraídos do arquivo `processed_OCRB.xlsx`, que contém informações sobre as contas bancárias dos parceiros de negócios.
 
 ## Relacionamentos
 
-### 1. **Relacionamento entre `Card` e `Address`** (1:N)
-   - **Descrição**: Um cliente ou fornecedor (`Card`) pode ter múltiplos endereços (`Address`). Por exemplo, uma empresa pode ter endereços de faturamento e endereços de entrega, ambos associados à mesma entidade.
-   - **Implementação**: A chave estrangeira `ParentKey` na entidade `Address` referencia a chave primária `CardCode` da entidade `Card`, indicando a relação de um para muitos (1:N) entre clientes/fornecedores e seus endereços.
+### 1. **Relacionamento entre `OCRD` e `CRD1`** (1:N)
+   - **Descrição**: Um parceiro de negócios (`OCRD`) pode ter múltiplos endereços (`CRD1`). Isso permite que um cliente ou fornecedor tenha endereços de cobrança e entrega separados.
+   - **Implementação**: A chave estrangeira `ParentKey` na entidade `CRD1` referencia a chave primária `CardCode` da entidade `OCRD`, indicando uma relação de um para muitos (1:N).
 
-### 2. **Relacionamento entre `Card` e `BankAccount`** (1:N)
-   - **Descrição**: Um cliente ou fornecedor (`Card`) pode ter várias contas bancárias registradas no sistema (`BankAccount`). Isso é útil para armazenar informações bancárias de múltiplos bancos para a mesma entidade.
-   - **Implementação**: A chave estrangeira `ParentKey` na entidade `BankAccount` referencia a chave primária `CardCode` da entidade `Card`, representando a relação de um para muitos (1:N) entre clientes/fornecedores e suas contas bancárias.
+### 2. **Relacionamento entre `OCRD` e `CRD7`** (1:N)
+   - **Descrição**: Um parceiro de negócios (`OCRD`) pode ter várias informações fiscais registradas (`CRD7`). Cada registro de imposto é associado a um único parceiro.
+   - **Implementação**: A chave estrangeira `ParentKey` na entidade `CRD7` referencia a chave primária `CardCode` da entidade `OCRD`, representando uma relação de um para muitos (1:N).
+
+### 3. **Relacionamento entre `OCRD` e `OCRB`** (1:N)
+   - **Descrição**: Um parceiro de negócios (`OCRD`) pode ter múltiplas contas bancárias registradas (`OCRB`). Isso permite que uma empresa ou indivíduo tenha várias contas associadas.
+   - **Implementação**: A chave estrangeira `ParentKey` na entidade `OCRB` referencia a chave primária `CardCode` da entidade `OCRD`, indicando uma relação de um para muitos (1:N).
 
 
-Este diagrama ER reflete a organização dos dados mestres essenciais para a implementação do SAP na G2 Tecnologia. Ele estabelece a relação entre as entidades de clientes e fornecedores e seus respectivos endereços e dados bancários. Esse modelo pode ser expandido para incluir outras entidades ou relações, dependendo das necessidades futuras do projeto.
+Este Diagrama Entidade-Relacionamento reflete a organização dos dados mestres essenciais para a implementação do SAP Business One na G2 Tecnologia. Ele ilustra as relações entre os parceiros de negócios e suas respectivas contas bancárias, endereços e informações fiscais, sendo fundamental para garantir a integridade e a eficiência do processo de implementação.
